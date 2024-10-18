@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="28abfb05-b648-4efa-bbe0-b2690a2efe63">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="curId" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\thexe\\OneDrive\\Documentos\\NetBeansProjects\\Uta\\src\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from cursos where curId = $P{curId}]]>
+	</queryString>
+	<field name="curId" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="242" y="10" width="119" height="44" uuid="bcf0eb43-aa0d-42a1-8f50-4c4f362e1fef"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[UTA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="23" y="2" width="100" height="20" uuid="f2c9119d-1ba6-4b9e-b818-79a290f5f0af"/>
+				<text><![CDATA[curId]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="176" y="2" width="100" height="20" uuid="dff7198b-7c57-4db5-afcb-567681d57da6"/>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="23" y="0" width="100" height="20" uuid="e597b42d-970f-462a-b315-d41a35eb2344"/>
+				<textFieldExpression><![CDATA[$F{curId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="176" y="0" width="100" height="20" uuid="3d3e008a-2b6d-4f5b-be2a-98a86af02cee"/>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="128" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="128" uuid="c657ea1a-2fea-4f6f-be36-d0a93bb35dc8"/>
+				<subreportParameter name="curId">
+					<subreportParameterExpression><![CDATA[$P{curId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reporteDetall.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>
