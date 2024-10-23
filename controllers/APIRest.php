@@ -13,8 +13,10 @@ include_once '../reportes/reporte2.php';
     /* echo $opc; */
     switch ($opc) {
         case 'GET':
+            //Verifica si es un método get para obtener cursos o estudiantes
             if (isset($_GET['tipo']) && $_GET['tipo'] == 'estudiantes') {
-                CrudS::seleccionarEstudiantes();                
+                CrudS::seleccionarEstudiantes();       
+                //Verifica si es un método get para llamar a un reporte general o de estudiante ReporteGeneral =1 ReporteEstudiante=2          
             } elseif (isset($_GET['report']) && $_GET['report'] == '1') {
                 Reporte::crearReporte();                
             } elseif (isset($_GET['report']) && $_GET['report'] == '2') {
@@ -32,12 +34,6 @@ include_once '../reportes/reporte2.php';
         case 'PUT':
             CrudE::editarEstudiante();
             break;
-        /* case 'REPORT':
-            if (isset($_GET['report']) && $_GET['report'] == '1') {
-                Reporte::crearReporte();                
-            }else{
-                Reporte2::crearReporte2();
-            } */
         default:
             # code...
             break;
