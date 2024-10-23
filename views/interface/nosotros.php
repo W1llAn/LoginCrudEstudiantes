@@ -12,7 +12,7 @@
     <body>
     <div class="container">
         <div class="row flex-lg-nowrap">
-            <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
+           <!--  <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
                 <div class="card p-3">
                     <div class="e-navlist e-navlist--active-bg">
                         <ul class="nav">
@@ -21,8 +21,8 @@
                             <li class="nav-item"><a class="nav-link px-2" href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Settings</span></a></li>
                         </ul>
                     </div>
-                </div>
-            </div>
+                </div>  
+            </div> -->
 
             <div class="col">
                 <div class="e-tabs mb-3 px-3">
@@ -43,7 +43,6 @@
                                         <table class="table table-bordered" id="students-table">
                                             <thead>
                                                 <tr>
-                                                    <th>Seleccionar</th>
                                                     <th>Cédula</th>
                                                     <th>Nombre</th>
                                                     <th>Apellido</th>
@@ -146,7 +145,7 @@
         $(document).ready(function() {
             // Cargar datos de estudiantes
             $.ajax({
-                url: 'models/acceder.php', // Cambia esto por la ruta correcta a tu archivo PHP
+                url: 'http://localhost:8080/LoginCrudEstudiantes/controllers/APIRest.php?tipo=estudiantes', // Cambia esto por la ruta correcta a tu archivo PHP
                 method: 'GET',
                 dataType: 'json',
                 success: function(data) {
@@ -155,7 +154,6 @@
                     if (data !== "No hay estudiantes") {
                         data.forEach(function(student) {
                             var row = '<tr>' +
-                                '<td><input type="checkbox" class="student-checkbox" data-id="' + student.id + '"></td>' +
                                 '<td>' + student.estCedula + '</td>' +
                                 '<td>' + student.estNombre + '</td>' +
                                 '<td>' + student.estApellido + '</td>' +
@@ -164,8 +162,8 @@
                                 '<td data-curso-id="' + student.nombre + '">' + student.nombre + '</td>'+
                                 '<td class="text-center align-middle">' +
                                     '<div class="btn-group align-top">' +
-                                        '<button class="btn btn-sm btn-outline-secondary badge edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#user-form-modal1">Edit</button>' +
-                                        '<button class="btn btn-sm btn-outline-secondary badge delete-btn" type="button"><i class="fa fa-trash"></i></button>' +
+                                        '<button class="btn btn-warning btn-sm btn-outline-secondary badge edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#user-form-modal1">Edit</button>' +
+                                        '<button class="btn btn-danger btn-sm btn-outline-secondary badge delete-btn" type="button"><i class="fa fa-trash"></i></button>' +
                                     '</div>' +
                                 '</td>' +
                                 '</tr>';
@@ -192,7 +190,7 @@
         });
 
             $.ajax({
-                url: 'models/cursos.php', // Cambia esto por la ruta correcta a tu archivo PHP para obtener los cursos
+                url: 'http://localhost:8080/LoginCrudEstudiantes/controllers/APIRest.php?tipo=cursos', // Cambia esto por la ruta correcta a tu archivo PHP para obtener los cursos
                 method: 'GET',
                 dataType: 'json',
                 success: function(cursos) {
@@ -216,12 +214,12 @@
         var row = $(this).closest('tr');
 
         // Obtener los datos de la fila
-        var cedula = row.find('td:eq(1)').text();
-        var nombre = row.find('td:eq(2)').text();
-        var apellido = row.find('td:eq(3)').text();
-        var telefono = row.find('td:eq(4)').text();
-        var direccion = row.find('td:eq(5)').text();
-        var cursoId = row.find('td:eq(6)').data('curso-id'); 
+        var cedula = row.find('td:eq(0)').text();
+        var nombre = row.find('td:eq(1)').text();
+        var apellido = row.find('td:eq(2)').text();
+        var telefono = row.find('td:eq(3)').text();
+        var direccion = row.find('td:eq(4)').text();
+        var cursoId = row.find('td:eq(5)').data('curso-id'); 
 
         // Llenar los campos del formulario del modal con los datos obtenidos
         $('#estCedula').val(cedula);
@@ -242,8 +240,8 @@
             formData += '&cedula=' + cedula;
 
             $.ajax({
-                url: 'models/editar.php', 
-                method: 'POST',
+                url: 'http://localhost:8080/LoginCrudEstudiantes/controllers/APIRest.php?cedula='+cedula, 
+                method: 'PUT',
                 data: formData, 
                 dataType: 'json',
                 success: function(response) {
@@ -262,7 +260,7 @@
                 e.preventDefault();
 
                 $.ajax({
-                    url: 'models/guardar.php', 
+                    url: 'http://localhost:8080/LoginCrudEstudiantes/controllers/APIRest.php', 
                     method: 'POST',
                     data: $(this).serialize(),
                     success: function(response) {
@@ -280,14 +278,12 @@
     $(document).ready(function() {
     $(document).on('click', '.delete-btn', function() {
         var row = $(this).closest('tr');
-        var cedula = row.find('td:eq(1)').text(); // Obtener la cédula del estudiante
-
+        var cedula = row.find('td:eq(0)').text(); // Obtener la cédula del estudiante
         if (confirm("¿Estás seguro de que quieres eliminar este estudiante?")) {
             // Realizar la solicitud AJAX para eliminar el estudiante
             $.ajax({
-                url: 'models/borrar.php', // Ruta al archivo PHP de eliminación
-                method: 'POST',
-                data: { cedula: cedula }, // Enviar la cédula del estudiante a eliminar
+                url: 'http://localhost:8080/LoginCrudEstudiantes/controllers/APIRest.php?cedula='+cedula, // Ruta al archivo PHP de eliminación
+                method: 'DELETE',
                 dataType: 'json',
                 success: function(response) {
                     alert(response);

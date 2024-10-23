@@ -14,7 +14,8 @@
     <h2>ESTUDIANTES UTA</h2>
     
     <table id="dg" title="Estudiantes" class="easyui-datagrid" style="width:700px;height:250px"
-            url="models/acceder.php"
+            url="http://localhost:8080/LoginCrudEstudiantes/controllers/APIRest.php?tipo=estudiantes",
+            method='GET',
             toolbar="#toolbar" pagination="true"
             rownumbers="true" fitColumns="true" singleSelect="true">
         <thead>
@@ -73,19 +74,19 @@
 
     <script type="text/javascript">
         var url;
-        
         function newUser(){
             $('#dlg').dialog('open').dialog('center').dialog('setTitle','Nuevo Estudiante');
             $('#fm').form('clear');
             loadCurID();
-            url = 'models/guardar.php';
+            url = 'http://localhost:8080/LoginCrudEstudiantes/controllers/APIRest.php';
         }
 
         function report(){
-            
-            url = 'reportes/reporte.php';
+            //SE UTILIZA EL REPORT PARA DISTINGUIR EL TIPO DE REPORTE
+            url = 'http://localhost:8080/LoginCrudEstudiantes/controllers/APIRest.php?report=1';
             window.open(url, '_blank');
         }
+
 
         function ventana(){
             $('#ventana').dialog('open').dialog('center').dialog('setTitle', 'Cedula Estudiante');
@@ -95,7 +96,8 @@
         function report2() {
             var ced = $('#ced').val(); // Asegúrate de que el ID coincide con el del input en el formulario
             if (ced) {
-                var url = 'reportes/reporte2.php?cedula=' + ced;
+                //SE UTILIZA EL REPORT PARA DISTINGUIR EL TIPO DE REPORTE Y SE MANDA CON LA CÉDULA
+                var url = 'http://localhost:8080/LoginCrudEstudiantes/controllers/APIRest.php?report=2&cedula=' + ced;
                 window.open(url, '_blank');
             }
         }
@@ -107,13 +109,15 @@
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle','Editar Estudiante');
                 $('#fm').form('load', row);
                 loadCurID(row.curId);
-                url = 'models/editar.php?cedula='+row.estCedula;
+                url = 'http://localhost:8080/LoginCrudEstudiantes/controllers/APIRest.php?cedula='+row.estCedula;
             }
         }
 
+
         function loadCurID(selectedCurID = null) {
             $('#curId').combobox({
-                url: 'models/cursos.php',
+                url: 'http://localhost:8080/LoginCrudEstudiantes/controllers/APIRest.php?tipo=cursos',
+                method:'GET',
                 valueField: 'curId',
                 textField: 'nombre',
                 panelHeight: 'auto',
@@ -125,43 +129,94 @@
             });
         }
 
+
+
         function saveUser(){
-            $('#fm').form('submit', {
-                url: url,
-                onSubmit: function(){
-                    return $(this).form('validate');
-                },
-                success: function(result){
-                    var result = eval('('+result+')');
-                    if (result.errorMsg){
+            try {
+                if (url != 'http://localhost:8080/LoginCrudEstudiantes/controllers/APIRest.php') {
+                //Enviar los datos del formulario para editar el estudiante
+                $.ajax({
+                    url:  'http://localhost:8080/LoginCrudEstudiantes/controllers/APIRest.php?cedula='+$('#fm').find('input[name="estCedula"]').val()  , // URL con la cedula
+                    type: 'PUT', 
+                    data: {
+                        estNombre: $('#fm').find('input[name="estNombre"]').val(),
+                        estApellido: $('#fm').find('input[name="estApellido"]').val(),
+                        estDireccion: $('#fm').find('input[name="estDireccion"]').val(),
+                        estTelefono: $('#fm').find('input[name="estTelefono"]').val(),
+                        curId : $('#fm').find('#curId').combobox('getValue')
+                    },
+                    //evalua si el resultado es correcto
+
+                    success: function(result) {
+                        //Si el error es de la API usar el console.log ya que al evaluar da un error "Unexpected token '<'"
+                        //console.log(result);
+                        var result = eval('(' + result + ')'); // Evaluar el resultado
+                        if (result.errorMsg) {
+                            $.messager.show({
+                                title: 'Error',
+                                msg: result.errorMsg
+                            });
+                        } else {
+                            //En caso de ser correcto
+                            $('#dlg').dialog('close'); // Cerrar el diálogo
+                            $('#dg').datagrid('reload'); // Recargar los datos
+                        }
+                    },
+                    error: function(xhr, status, error) {
                         $.messager.show({
                             title: 'Error',
-                            msg: result.errorMsg
+                            msg: 'Error al actualizar el usuario: ' + error
                         });
-                    } else {
-                        $('#dlg').dialog('close');
-                        $('#dg').datagrid('reload');
                     }
-                }
-            });
+                });
+            } else{
+                //Enviar los datos del formulario para    
+                $('#fm').form('submit', {
+                    url: url,
+                    onSubmit: function(){
+                        return $(this).form('validate');
+                    },
+                    success: function(result){
+                        alert(result);
+                        var result = eval('(' + result + ')');
+                        if (result.errorMsg){
+                            $.messager.show({
+                                title: 'Error',
+                                msg: result.errorMsg
+                            });
+                        } else {
+                            $('#dlg').dialog('close');
+                            $('#dg').datagrid('reload');
+                        }
+                    }
+                });
+            }
+            } catch (error) {
+                console.log(error);
+                
+              alert("Error al editar el estudiante");  
+            }
+          
         }
 
         function destroyUser(){
             var row = $('#dg').datagrid('getSelected');
             if (row){
                 $.messager.confirm('Confirmar','¿Estás seguro de eliminar?', function(r){
-                    if (r){
-                        $.post('models/borrar.php', {cedula: row.estCedula}, function(result){
-                            if (!result.success){
+                if (r){
+                    $.ajax({
+                            url: "http://localhost:8080/LoginCrudEstudiantes/controllers/APIRest.php?cedula="+row.estCedula,
+                            type: "DELETE",
+                            
+                            success: (jsonData) => {
+                                console.log(jsonData);
                                 $('#dg').datagrid('reload');
-                            } else {
-                                $.messager.show({
-                                    title: 'Error',
-                                    msg: result.errorMsg
-                                });
+
+                            }, error: (error) => {
+                                console.log("Error al leer el json", error);
                             }
-                        }, 'json');
-                    }
+                        })  
+                }
                 });
             }
         }

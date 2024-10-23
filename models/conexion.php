@@ -2,8 +2,8 @@
 
 class conexion{
     public function conectar(){
-        
-        $servername = 'localhost:33065';
+        //En caso de que esto les de error solo coloquen el puerto donde tengan la base 
+        $servername = 'localhost';
         $username = 'root';
         $password = '';
         $dbname = 'cuarto';
