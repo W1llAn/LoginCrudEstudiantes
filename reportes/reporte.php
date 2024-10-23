@@ -1,5 +1,6 @@
 <?php
-
+class Reporte{
+    public static function crearReporte(){
     require('../fpdf186/fpdf.php');
     include '../models/conexion.php';
     $conn = new conexion();
@@ -32,5 +33,6 @@
         $pdf ->Ln();
     }
     $pdf -> OutPut();
-    
+    }
+}
 ?>
