@@ -23,7 +23,7 @@ nav ul{
 nav ul li{
     display: inline-block;
     margin: auto;
-    width: 24%;
+    width: 15%;
     line-height: 50px;
     list-style: none;
     color: white;
@@ -31,6 +31,7 @@ nav ul li{
 nav ul li a {
     color: white;
     text-decoration: none;
+    
 }
 section{
     position: relative;
@@ -51,4 +52,7 @@ footer{
 .titulos{
     font-size: 30px;
     text-align: center;
+}
+nav ul li:last-child {
+    float: inline-end; /* El último <li> (el del botón) lo flotamos a la derecha */
 }
