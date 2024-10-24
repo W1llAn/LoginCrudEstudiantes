@@ -4,6 +4,7 @@ include_once '../models/guardar.php';
 include_once '../models/borrar.php';
 include_once '../models/editar.php';
 include_once '../models/cursos.php';
+include_once '../models/auth.php';
 include_once '../reportes/reporte.php';
 include_once '../reportes/reporte2.php';
 
@@ -26,7 +27,11 @@ include_once '../reportes/reporte2.php';
             }
             break;
         case 'POST':
-            CrudG::crearEstudiante();
+            if (isset($_POST['action']) && $_POST['action'] == 'login') {
+                AuthU::inicioSesion();
+            } else {
+                CrudG::crearEstudiante();
+            }
             break;
         case 'DELETE':
             CrudB::borrarEstudiante();
