@@ -43,7 +43,3 @@ include_once '../reportes/reporte2.php';
             # code...
             break;
     }
-    
-
-
-?>
