@@ -14,7 +14,7 @@
     <h2>ESTUDIANTES UTA</h2>
     
     <table id="dg" title="Estudiantes" class="easyui-datagrid" style="width:700px;height:250px"
-            url="http://localhost:8087/TrabGrupo/LoginCrudEstudiantes/controllers/APIRest.php?tipo=estudiantes",
+            url="http://localhost/LoginCrudEstudiantes/controllers/APIRest.php?tipo=estudiantes",
             method='GET',
             toolbar="#toolbar" pagination="true"
             rownumbers="true" fitColumns="true" singleSelect="true">
@@ -78,12 +78,12 @@
             $('#dlg').dialog('open').dialog('center').dialog('setTitle','Nuevo Estudiante');
             $('#fm').form('clear');
             loadCurID();
-            url = 'http://localhost:8087/TrabGrupo/LoginCrudEstudiantes/controllers/APIRest.php';
+            url = 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php';
         }
 
         function report(){
             //SE UTILIZA EL REPORT PARA DISTINGUIR EL TIPO DE REPORTE
-            url = 'http://localhost:8087/TrabGrupo/LoginCrudEstudiantes/controllers/APIRest.php?report=1';
+            url = 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php?report=1';
             window.open(url, '_blank');
         }
 
@@ -97,7 +97,7 @@
             var ced = $('#ced').val(); // Asegúrate de que el ID coincide con el del input en el formulario
             if (ced) {
                 //SE UTILIZA EL REPORT PARA DISTINGUIR EL TIPO DE REPORTE Y SE MANDA CON LA CÉDULA
-                var url = 'http://localhost:8087/TrabGrupo/LoginCrudEstudiantes/controllers/APIRest.php?report=2&cedula=' + ced;
+                var url = 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php?report=2&cedula=' + ced;
                 window.open(url, '_blank');
             }
         }
@@ -109,14 +109,14 @@
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle','Editar Estudiante');
                 $('#fm').form('load', row);
                 loadCurID(row.curId);
-                url = 'http://localhost:8087/TrabGrupo/LoginCrudEstudiantes/controllers/APIRest.php?cedula='+row.estCedula;
+                url = 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php?cedula='+row.estCedula;
             }
         }
 
 
         function loadCurID(selectedCurID = null) {
             $('#curId').combobox({
-                url: 'http://localhost:8087/TrabGrupo/LoginCrudEstudiantes/controllers/APIRest.php?tipo=cursos',
+                url: 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php?tipo=cursos',
                 method:'GET',
                 valueField: 'curId',
                 textField: 'nombre',
@@ -133,10 +133,10 @@
 
         function saveUser(){
             try {
-                if (url != 'http://localhost:8087/TrabGrupo/LoginCrudEstudiantes/controllers/APIRest.php') {
+                if (url != 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php') {
                 //Enviar los datos del formulario para editar el estudiante
                 $.ajax({
-                    url:  'http://localhost:8087/TrabGrupo/LoginCrudEstudiantes/controllers/APIRest.php?cedula='+$('#fm').find('input[name="estCedula"]').val()  , // URL con la cedula
+                    url:  'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php?cedula='+$('#fm').find('input[name="estCedula"]').val()  , // URL con la cedula
                     type: 'PUT', 
                     data: {
                         estNombre: $('#fm').find('input[name="estNombre"]').val(),
@@ -205,7 +205,7 @@
                 $.messager.confirm('Confirmar','¿Estás seguro de eliminar?', function(r){
                 if (r){
                     $.ajax({
-                            url: "http://localhost:8087/TrabGrupo/LoginCrudEstudiantes/controllers/APIRest.php?cedula="+row.estCedula,
+                            url: "http://localhost/LoginCrudEstudiantes/controllers/APIRest.php?cedula="+row.estCedula,
                             type: "DELETE",
                             
                             success: (jsonData) => {

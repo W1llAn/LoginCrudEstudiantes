@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/form.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>iniciarSesion</title>
+    <title>Iniciar Sesión</title>
 </head>
 
 <body>
@@ -16,13 +16,12 @@
             <h5 id="mensajeError" style="color: red"></h5>
             <h3>Usuario</h3>
             <input type="text" name="usuario" placeholder="Dirección de correo institucional sin @uta.edu.ec">
-            <span>
-            </span>
+            <span></span>
         </div>
 
         <div class="input-container">
             <h3>Contraseña</h3>
-            <input type="password" name="contraseña" placeholder="Contraseña">
+            <input type="password" name="password" placeholder="Contraseña">
         </div>
         <input type="hidden" name="action" value="login">
         <button type="submit" class="submit" style="cursor: pointer;">
@@ -31,37 +30,45 @@
 
         <script>
             function validarUsuario() {
-                url = 'http://localhost:8087/TrabGrupo/LoginCrudEstudiantes/controllers/APIRest.php';
+                url = 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php';
                 var usuario = $('input[name="usuario"]').val();
-                var contraseña = $('input[name="contraseña"]').val();
+                var password = $('input[name="password"]').val();
                 $('#mensajeError').text('');
+
+                if (!usuario || !password) {
+                    $('#mensajeError').text('Por favor, ingrese usuario y contraseña.');
+                    return;
+                }
+
                 $.ajax({
                     url: url,
                     type: 'POST',
                     dataType: 'json',
                     data: {
                         action: 'login',
-                        nombreUsuario: usuario,
-                        password: contraseña,
+                        usuario: usuario,
+                        password: password,
                     },
                     success: function(jsonData) {
                         if (jsonData.message) {
-                            // alert(JSON.stringify(jsonData.message));
-                            window.location.href = 'index.php?action=nosotros';
+                            if (jsonData.rol === 'admin') {
+                                window.location.href = 'index.php?action=nosotros';
+                                window.location.href = 'index.php?action=servicios';
+                            } else if (jsonData.rol === 'cliente') {
+                                window.location.href = 'index.php?action=nosotros_cliente';
+                                window.location.href = 'index.php?action=servicios_cliente';
+
+                            }
                         } else if (jsonData.error) {
-                            // alert(JSON.stringify(jsonData.error));
-                            $('#mensajeError').text(JSON.stringify(jsonData.error));
+                            $('#mensajeError').text(jsonData.error);
                         }
                     },
                     error: function(error) {
-                        alert("No se pudo leer los datos")
+                        $('#mensajeError').text('Error al procesar la solicitud.');
                     }
                 });
-
             }
         </script>
-
-
     </form>
 
 </body>
