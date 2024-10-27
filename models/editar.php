@@ -15,7 +15,7 @@ class CrudE{
 
         $sqlEditar = "UPDATE estudiantes SET estNombre = '$nombre', estApellido = '$apellido', estDireccion = '$direccion', estTelefono = '$telefono', curId = $curId WHERE estCedula = '$cedula'";
 
-        if(sqlsrv_query($sqlEditar)== TRUE){
+        if(sqlsrv_query($con,$sqlEditar)== TRUE){
             echo json_encode('Se edito el estudiante');
         }
         else{
