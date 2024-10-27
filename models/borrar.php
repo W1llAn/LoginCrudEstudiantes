@@ -1,18 +1,20 @@
 <?php
+class CrudB{
+    public static function borrarEstudiante(){
+        include 'conexion.php';
+        $conn = new conexion();
+        $con = $conn -> conectar();
+        $cedula = $_GET ['cedula'];
+        $sqlBorrar = "DELETE FROM estudiantes WHERE estCedula='$cedula'";
 
-    include 'conexion.php';
-    $conn = new conexion();
-    $con = $conn -> conectar();
-    $cedula = $_POST['cedula'];
-    $sqlBorrar = "DELETE FROM estudiantes WHERE estCedula='$cedula'";
-
-    if($con -> query($sqlBorrar)== TRUE){
-        echo json_encode('Se borro el estudiante');
+        if(sqlsrv_query($con,$sqlBorrar)== TRUE){
+            echo json_encode('Se borro el estudiante');
+        }
+        else{
+            echo json_encode('Fallo al borrar el estudiante'.$sqlBorrar.$mysqli->error);
+        }
     }
-    else{
-        echo json_encode('Fallo al borrar el estudiante'.$sqlBorrar.$mysqli->error);
-    }
-
+}
 
 
 ?>

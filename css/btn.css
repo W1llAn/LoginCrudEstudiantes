@@ -1,0 +1,26 @@
+button {
+  
+    padding: 12.5px 30px;
+    white-space: nowrap;
+    border: 0;
+    border-radius: 10px;
+    background-color: #7c121f;
+    color: #ffffff;
+    font-weight: Bold;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+  }
+  
+  button:hover {
+    background-color: #930a0d;
+    box-shadow: 0 0 10px #ffffff;
+    transform: scale(1.1);
+  }
+  
+  button:active {
+    background-color: #7c121f;
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    box-shadow: none;
+    transform: scale(0.98);
+  }
