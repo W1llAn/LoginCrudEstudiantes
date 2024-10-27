@@ -6,13 +6,12 @@ class AuthU {
         include 'conexion.php';
         $conn = new conexion();
         $con = $conn -> conectar();
-        $usuario = $_POST [ 'usuario'];
-        $password = $_POST[ 'password'];
+        $usuario = $_POST ['usuario'];
+        $password = $_POST['password'];
         $sqlIngresar = "SELECT * FROM usuarios WHERE usuario = '$usuario'";
         $respuesta = sqlsrv_query ($con,$sqlIngresar);
         if (sqlsrv_has_rows($respuesta)){
             $row = sqlsrv_fetch_array($respuesta, SQLSRV_FETCH_ASSOC);
-            echo $row['password'];
             if ($password == $row['password']) {
                 $id_rol = $row['id_rol'];
 

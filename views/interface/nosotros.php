@@ -232,11 +232,16 @@
         // Adjuntar el evento submit del formulario de edición
         $('#student-form').off('submit').on('submit', function(e) {
             e.preventDefault();
-
+            
             // Obtener los datos del formulario
-            var formData = $(this).serialize();
+            //var formData = $(this).serialize();
 
-            // Agregar la cédula al formulario
+            let nombreE = $('#estNombre').val();
+            let apellidoE = $('#estApellido').val();
+            let telefonoE = $('#estTelefono').val();
+            let direccionE = $('#estDireccion').val();
+            let cursoE =  $('#curId').val();
+            let formData = `estNombre=${nombreE}&estApellido=${apellidoE}&estTelefono=${telefonoE}&estDireccion=${direccionE}&curId=${cursoE}`;
             formData += '&cedula=' + cedula;
 
             $.ajax({
