@@ -49,7 +49,7 @@
                 `;
             } else {
                 menu.innerHTML = `
-                    <li><a href="index.php?action=inicio">Inicio</a></li>
+                    <li><a href="index.php?action=ini">Inicio</a></li>
                     <li><a href="index.php?action=nosotros_cliente">Nosotros</a></li>
                     <li><a href="index.php?action=servicios_cliente">Servicios</a></li>
                     <li><a href="index.php?action=contactanos">Contactanos</a></li>
