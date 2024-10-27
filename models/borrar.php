@@ -7,7 +7,7 @@ class CrudB{
         $cedula = $_GET ['cedula'];
         $sqlBorrar = "DELETE FROM estudiantes WHERE estCedula='$cedula'";
 
-        if($con -> query($sqlBorrar)== TRUE){
+        if(sqlsrv_query($con,$sqlBorrar)== TRUE){
             echo json_encode('Se borro el estudiante');
         }
         else{

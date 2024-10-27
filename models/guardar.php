@@ -13,7 +13,7 @@ class crudG{
         
         $sqlInsert = "INSERT INTO estudiantes VALUES('$cedula','$nombre','$apellido','$telefono','$direccion',$curId)";
 
-        if($con -> query($sqlInsert)== TRUE){
+        if(sqlsrv_query($con,$sqlInsert)== TRUE){
             echo json_encode('Se guardo el estudiante');
         }
         else{
