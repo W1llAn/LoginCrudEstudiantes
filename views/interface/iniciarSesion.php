@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Iniciar Sesión</title>
 </head>
-
 <body>
     <br>
     <form class="form" onsubmit="validarUsuario(); return false;">
@@ -27,50 +25,45 @@
         <button type="submit" class="submit" style="cursor: pointer;">
             Iniciar Sesión
         </button>
-
-        <script>
-            function validarUsuario() {
-                url = 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php';
-                var usuario = $('input[name="usuario"]').val();
-                var password = $('input[name="password"]').val();
-                $('#mensajeError').text('');
-
-                if (!usuario || !password) {
-                    $('#mensajeError').text('Por favor, ingrese usuario y contraseña.');
-                    return;
-                }
-
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        action: 'login',
-                        usuario: usuario,
-                        password: password,
-                    },
-                    success: function(jsonData) {
-                        if (jsonData.message) {
-                            if (jsonData.rol === 'admin') {
-                                window.location.href = 'index.php?action=nosotros';
-                                window.location.href = 'index.php?action=servicios';
-                            } else if (jsonData.rol === 'cliente') {
-                                window.location.href = 'index.php?action=nosotros_cliente';
-                                window.location.href = 'index.php?action=servicios_cliente';
-
-                            }
-                        } else if (jsonData.error) {
-                            $('#mensajeError').text(jsonData.error);
-                        }
-                    },
-                    error: function(error) {
-                        $('#mensajeError').text('Error al procesar la solicitud.');
-                    }
-                });
-            }
-        </script>
     </form>
 
-</body>
+    <script>
+        function validarUsuario() {
+            const url = 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php';
+            const usuario = $('input[name="usuario"]').val();
+            const password = $('input[name="password"]').val();
+            $('#mensajeError').text('');
 
+            if (!usuario || !password) {
+                $('#mensajeError').text('Por favor, ingrese usuario y contraseña.');
+                return;
+            }
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    action: 'login',
+                    usuario: usuario,
+                    password: password,
+                },
+                success: function(jsonData) {
+                    if (jsonData.message) {
+                        if (jsonData.rol === 'admin') {
+                            window.location.href = 'index.php?action=nosotros';
+                        } else if (jsonData.rol === 'cliente') {
+                            window.location.href = 'index.php?action=nosotros_cliente';
+                        }
+                    } else if (jsonData.error) {
+                        $('#mensajeError').text(jsonData.error);
+                    }
+                },
+                error: function() {
+                    $('#mensajeError').text('Error al procesar la solicitud.');
+                }
+            });
+        }
+    </script>
+</body>
 </html>
