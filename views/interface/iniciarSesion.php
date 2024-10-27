@@ -28,43 +28,44 @@
     </form>
 
     <script>
-        function validarUsuario() {
-            const url = 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php';
-            const usuario = $('input[name="usuario"]').val();
-            const password = $('input[name="password"]').val();
-            $('#mensajeError').text('');
+    function validarUsuario() {
+        const url = 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php';
+        const usuario = $('input[name="usuario"]').val();
+        const password = $('input[name="password"]').val();
+        $('#mensajeError').text('');
 
-            if (!usuario || !password) {
-                $('#mensajeError').text('Por favor, ingrese usuario y contraseña.');
-                return;
-            }
-
-            $.ajax({
-                url: url,
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    action: 'login',
-                    usuario: usuario,
-                    password: password,
-                },
-                success: function(jsonData) {
-                    if (jsonData.message) {
-                        if (jsonData.rol === 'admin') {
-                            localStorage.setItem('loggedIn', 'true');
-                            window.location.href = 'index.php?action=nosotros';
-                        } else if (jsonData.rol === 'cliente') {
-                            window.location.href = 'index.php?action=nosotros_cliente';
-                        }
-                    } else if (jsonData.error) {
-                        $('#mensajeError').text(jsonData.error);
-                    }
-                },
-                error: function() {
-                    $('#mensajeError').text('Error al procesar la solicitud.');
-                }
-            });
+        if (!usuario || !password) {
+            $('#mensajeError').text('Por favor, ingrese usuario y contraseña.');
+            return;
         }
-    </script>
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                action: 'login',
+                usuario: usuario,
+                password: password,
+            },
+            success: function(jsonData) {
+                if (jsonData.message) {
+                    if (jsonData.rol === 'admin') {
+                        localStorage.setItem('loggedIn', 'true');
+                        window.location.href = 'index.php?action=inicio';
+                    } else {
+                        $('#mensajeError').text('Acceso no autorizado.');
+                    }
+                } else if (jsonData.error) {
+                    $('#mensajeError').text(jsonData.error);
+                }
+            },
+            error: function() {
+                $('#mensajeError').text('Error al procesar la solicitud.');
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
