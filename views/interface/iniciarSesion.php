@@ -51,6 +51,7 @@
                 success: function(jsonData) {
                     if (jsonData.message) {
                         if (jsonData.rol === 'admin') {
+                            localStorage.setItem('loggedIn', 'true');
                             window.location.href = 'index.php?action=nosotros';
                         } else if (jsonData.rol === 'cliente') {
                             window.location.href = 'index.php?action=nosotros_cliente';
