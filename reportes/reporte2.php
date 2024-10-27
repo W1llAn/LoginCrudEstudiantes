@@ -7,7 +7,7 @@ class Reporte2{
     $con = $conn -> conectar();
     $cedula = $_GET['cedula'];
     $sqlSelect = "SELECT estudiantes.estCedula, estudiantes.estNombre, estudiantes.estApellido, estudiantes.estTelefono, estudiantes.estDireccion,cursos.nombre FROM estudiantes,cursos where estudiantes.curId = cursos.curId AND estudiantes.estCedula = '$cedula'";
-    $respuesta = $con -> query($sqlSelect);
+    $respuesta = sqlsrv_query($con,$sqlSelect);
     $pdf = new FPDF();
     $pdf -> AddPage();
     $pdf -> SetFont('Arial','B',11);
@@ -18,7 +18,7 @@ class Reporte2{
     $pdf -> Cell(35,10,'direccion',1);
     $pdf -> Cell(30,10,'curso',1);
     $pdf ->Ln();
-    while($row=$respuesta->fetch_array()){
+    while($row=sqlsrv_fetch_array($respuesta, SQLSRV_FETCH_ASSOC)){
         $nombre = $row['estNombre'];
         $apellido = $row['estApellido'];
         $telefono = $row['estTelefono'];
