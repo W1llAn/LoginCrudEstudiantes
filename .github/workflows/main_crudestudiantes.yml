@@ -23,8 +23,10 @@ jobs:
 
       - name: Install SQLSRV extensions
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y php8.2-sqlsrv php8.2-pdo-sqlsrv
+          curl -s https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+          sudo curl -s -o /etc/apt/sources.list.d/microsoft.list https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list
+          sudo apt-get update
+          sudo ACCEPT_EULA=Y apt-get install -y php-sqlsrv php-pdo-sqlsrv
 
       - name: Check if composer.json exists
         id: check_files
