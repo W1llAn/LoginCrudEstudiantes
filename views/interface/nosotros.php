@@ -145,7 +145,7 @@
         $(document).ready(function() {
             // Cargar datos de estudiantes
             $.ajax({
-                url: 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php?tipo=estudiantes', // Cambia esto por la ruta correcta a tu archivo PHP
+                url: 'http://crudestudiantes-hmf5d8dxcph7eacy.westus-01.azurewebsites.net/controllers/APIRest.php?tipo=estudiantes', // Cambia esto por la ruta correcta a tu archivo PHP
                 method: 'GET',
                 dataType: 'json',
                 success: function(data) {
@@ -190,7 +190,7 @@
         });
 
             $.ajax({
-                url: 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php?tipo=cursos', // Cambia esto por la ruta correcta a tu archivo PHP para obtener los cursos
+                url: 'http://crudestudiantes-hmf5d8dxcph7eacy.westus-01.azurewebsites.net/controllers/APIRest.php?tipo=cursos', // Cambia esto por la ruta correcta a tu archivo PHP para obtener los cursos
                 method: 'GET',
                 dataType: 'json',
                 success: function(cursos) {
@@ -245,7 +245,7 @@
             formData += '&cedula=' + cedula;
 
             $.ajax({
-                url: 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php?cedula='+cedula, 
+                url: 'http://crudestudiantes-hmf5d8dxcph7eacy.westus-01.azurewebsites.net/controllers/APIRest.php?cedula='+cedula, 
                 method: 'PUT',
                 data: formData, 
                 dataType: 'json',
@@ -265,7 +265,7 @@
                 e.preventDefault();
 
                 $.ajax({
-                    url: 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php', 
+                    url: 'http://crudestudiantes-hmf5d8dxcph7eacy.westus-01.azurewebsites.net/controllers/APIRest.php', 
                     method: 'POST',
                     data: $(this).serialize(),
                     success: function(response) {
@@ -287,7 +287,7 @@
         if (confirm("¿Estás seguro de que quieres eliminar este estudiante?")) {
             // Realizar la solicitud AJAX para eliminar el estudiante
             $.ajax({
-                url: 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php?cedula='+cedula, // Ruta al archivo PHP de eliminación
+                url: 'http://crudestudiantes-hmf5d8dxcph7eacy.westus-01.azurewebsites.net/controllers/APIRest.php?cedula='+cedula, // Ruta al archivo PHP de eliminación
                 method: 'DELETE',
                 dataType: 'json',
                 success: function(response) {

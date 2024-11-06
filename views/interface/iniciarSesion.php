@@ -29,7 +29,7 @@
 
     <script>
     function validarUsuario() {
-        const url = 'http://localhost/LoginCrudEstudiantes/controllers/APIRest.php';
+        const url = 'http://crudestudiantes-hmf5d8dxcph7eacy.westus-01.azurewebsites.net/controllers/APIRest.php';
         const usuario = $('input[name="usuario"]').val();
         const password = $('input[name="password"]').val();
         $('#mensajeError').text('');

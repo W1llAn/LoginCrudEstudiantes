@@ -6,7 +6,7 @@ use simitsdk\phpjasperxml\PHPJasperXML;
 $filename = '../jasper/reporteDetall.jrxml';
 
 try {
-    $dbh = new PDO('mysql:host=localhost:33065;dbname=cuarto', 'root', '');
+    $dbh = new PDO('mysql:host=sql3.freemysqlhosting.net;dbname=sql3743053', 'sql3743053', 'fHRrBJMK4D');
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Configura PDO para lanzar excepciones en errores
 } catch (PDOException $e) {
     echo "Error de conexión: " . $e->getMessage();
