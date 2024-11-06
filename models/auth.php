@@ -9,9 +9,9 @@ class AuthU {
         $usuario = $_POST ['usuario'];
         $password = $_POST['password'];
         $sqlIngresar = "SELECT * FROM usuarios WHERE usuario = '$usuario'";
-        $respuesta = sqlsrv_query ($con,$sqlIngresar);
-        if (sqlsrv_has_rows($respuesta)){
-            $row = sqlsrv_fetch_array($respuesta, SQLSRV_FETCH_ASSOC);
+        $respuesta = $con->query($sqlIngresar);
+        if ($respuesta->num_rows>0){
+            $row = $respuesta->fetch_assoc();
             if ($password == $row['password']) {
                 $id_rol = $row['id_rol'];
 

@@ -1,42 +1,30 @@
 <?php
 
 class conexion{
-    public function conectar(){
-        // SQL Server Extension Sample Code:
-        //Al usar una base de datos remota en Azure se utiliza la extensión sqlsrv y la línea de conexión que proporciona Azure
-        try {
-            //Se agregan los datos de la base de datos
-            /* UID(userid) = nombre de usuario = administradorSOA
-            pwd = contraseña = Soa_estudiantes159@ */
-            $connectionInfo = array("UID" => "administradorSOA", "pwd" => "{Soa_estudiantes159@}", "Database" => "estudiantes-quinto", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
-            //El nombre del servidor se crea aparte
-            $serverName = "tcp:crud-estudiantes.database.windows.net,1433";
-            //Se envia establece la conexión usando sqlsrv_connect
-            $conn = sqlsrv_connect($serverName, $connectionInfo);
-            if(!$conn){
-                die('error en la conexion'.mysqli_connect_error());
-            }
-            else{
-                //En caso de ser exitoso se retorna el objeto
-                return $conn;
-            }
-            /* $serverName = "tcp:crud-estudiantes.database.windows.net,1433";
-            $database = "estudiantes-quinto";
-            $username = "administradorSOA";
-            $password = "Soa_estudiantes159@";
+    private $servername = "localhost";
+    private $username = "root";
+    private $password = "";
+    private $dbname = "cuarto";
+    private $conn;
 
-                // Configura la cadena de conexión dblib para conectarte a Azure SQL
-                $dsn = "dblib:host=$serverName;dbname=$database";
-            
-                // Conéctate usando PDO
-                $conn = new PDO($dsn, $username, $password);
-                
-                // Configura el manejo de errores de PDO
-                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); */                
-            } catch (PDOException $e) {
-                echo "Error en la conexión: " . $e->getMessage();
-            }
-        
+    public function conectar(){
+        /* $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+
+        // Verificar si hay algún error en la conexión
+        if ($this->conn->connect_error) {
+            die("Error de conexión: " . $this->conn->connect_error);
+        }
+
+        // Retornar el objeto de conexión
+        return $this->conn; */
+        $conn = mysqli_connect($this->servername, $this->username, $this->password, $this->dbname);
+
+        if (!$conn) {
+            //el die mata a todo los procesos y ya no hace nada mas
+            echo ("error en la conexion" . mysqli_connect_error());
+        } else {
+            return $conn;
+        }
     }
 }
 

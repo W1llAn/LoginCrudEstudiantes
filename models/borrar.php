@@ -6,12 +6,10 @@ class CrudB{
         $con = $conn -> conectar();
         $cedula = $_GET ['cedula'];
         $sqlBorrar = "DELETE FROM estudiantes WHERE estCedula='$cedula'";
-
-        if(sqlsrv_query($con,$sqlBorrar)== TRUE){
-            echo json_encode('Se borro el estudiante');
-        }
-        else{
-            echo json_encode('Fallo al borrar el estudiante'.$sqlBorrar.$mysqli->error);
+        if ($con->query($sqlBorrar)==TRUE) {
+            echo json_encode("se Borro");
+        }else {
+            echo json_encode("No se Borro".$sqlBorrar.$mysqli->error);
         }
     }
 }
