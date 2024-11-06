@@ -1,23 +1,23 @@
 <?php
 class EnlacesPaginas {
     public static function enlacesPaginasModel($enlaceModel) {
-        $routesAdmin = ["nosotros", "servicios", "contactanos"];
-        $routesCliente = ["nosotros_cliente", "servicios_cliente", "contactanos"];
-        $defaultRoute = "views/interface/inicio.php";
-        
-        session_start();
-        if (!isset($_SESSION['usuario']) || !isset($_SESSION['rol'])) {
-            return "views/interface/iniciarSesion.php";
-        }
+        // Verificar si el usuario está logueado a través de una sesión o variable.
+        $isLoggedIn = isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true;
 
-        $rol = $_SESSION['rol'];
+        // Definir el módulo por defecto.
+        $module = $isLoggedIn ? "views/interface/inicio.php" : "views/interface/ini.php";
 
-        if ($rol === 'admin' && in_array($enlaceModel, $routesAdmin)) {
-            $module = "views/interface/{$enlaceModel}.php";
-        } elseif ($rol === 'cliente' && in_array($enlaceModel, $routesCliente)) {
-            $module = "views/interface/{$enlaceModel}.php";
-        } else {
-            $module = $defaultRoute;
+        // Usar switch para seleccionar el módulo según la acción.
+        switch ($enlaceModel) {
+            case "nosotros":
+            case "nosotros_cliente":
+            case "servicios":
+            case "servicios_cliente":
+            case "inicio":
+            case "contactanos":
+            case "iniciarSesion":
+                $module = "views/interface/{$enlaceModel}.php";
+                break;
         }
 
         return $module;
