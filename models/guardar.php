@@ -13,11 +13,10 @@ class crudG{
         
         $sqlInsert = "INSERT INTO estudiantes VALUES('$cedula','$nombre','$apellido','$telefono','$direccion',$curId)";
 
-        if(sqlsrv_query($con,$sqlInsert)== TRUE){
-            echo json_encode('Se guardo el estudiante');
-        }
-        else{
-            echo json_encode('Fallo al insertar el estudiante'.$sqlInsert.$mysqli->error);
+        if ($con->query($sqlInsert)==TRUE) {
+            echo json_encode("se guardo");
+        }else {
+            echo json_encode("No se guardo".$sqlInsert.$mysqli->error);
         }
 
     }
