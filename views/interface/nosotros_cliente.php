@@ -132,7 +132,7 @@
     $(document).ready(function() {
         // Cargar datos de estudiantes
         $.ajax({
-            url: 'http://crudestudiantes-hmf5d8dxcph7eacy.westus-01.azurewebsites.net/controllers/APIRest.php?tipo=estudiantes', // Cambia esto por la ruta correcta a tu archivo PHP
+            url: 'https://crudestudiantes-hmf5d8dxcph7eacy.westus-01.azurewebsites.net/controllers/APIRest.php?tipo=estudiantes', // Cambia esto por la ruta correcta a tu archivo PHP
             method: 'GET',
             dataType: 'json',
             success: function(data) {

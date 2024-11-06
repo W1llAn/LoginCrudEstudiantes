@@ -14,7 +14,7 @@
     <h2>ESTUDIANTES UTA</h2>
     
     <table id="dg" title="Estudiantes" class="easyui-datagrid" style="width:700px;height:250px"
-            url="http://crudestudiantes-hmf5d8dxcph7eacy.westus-01.azurewebsites.net/controllers/APIRest.php?tipo=estudiantes",
+            url="https://crudestudiantes-hmf5d8dxcph7eacy.westus-01.azurewebsites.net/controllers/APIRest.php?tipo=estudiantes",
             method='GET',
             toolbar="#toolbar" pagination="true"
             rownumbers="true" fitColumns="true" singleSelect="true">
@@ -80,7 +80,7 @@
 
         function report(){
             //SE UTILIZA EL REPORT PARA DISTINGUIR EL TIPO DE REPORTE
-            url = 'http://crudestudiantes-hmf5d8dxcph7eacy.westus-01.azurewebsites.net/controllers/APIRest.php?report=1';
+            url = 'https://crudestudiantes-hmf5d8dxcph7eacy.westus-01.azurewebsites.net/controllers/APIRest.php?report=1';
             window.open(url, '_blank');
         }
 
@@ -93,7 +93,7 @@
             var ced = $('#ced').val(); // Asegúrate de que el ID coincide con el del input en el formulario
             if (ced) {
                 //SE UTILIZA EL REPORT PARA DISTINGUIR EL TIPO DE REPORTE Y SE MANDA CON LA CÉDULA
-                var url = 'http://crudestudiantes-hmf5d8dxcph7eacy.westus-01.azurewebsites.net/controllers/APIRest.php?report=2&cedula=' + ced;
+                var url = 'https://crudestudiantes-hmf5d8dxcph7eacy.westus-01.azurewebsites.net/controllers/APIRest.php?report=2&cedula=' + ced;
                 window.open(url, '_blank');
             }
         }
