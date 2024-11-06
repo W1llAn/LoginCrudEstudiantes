@@ -1,10 +1,10 @@
 <?php
 
 class conexion{
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $dbname = "cuarto";
+    private $servername = "sql3.freemysqlhosting.net";
+    private $username = "sql3743053";
+    private $password = "fHRrBJMK4D";
+    private $dbname = "sql3743053";
     private $conn;
 
     public function conectar(){
